@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Firebase CRUD</title>
+</head>
+<body>
+    <h2>Add New User</h2>
+    <form action="/insert" method="post">
+        <input type="text" name="name" placeholder="Name" required><br>
+        <input type="email" name="email" placeholder="Email" required><br>
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>User List</h2>
+    {% if users %}
+        <ul>
+        {% for key, user in users.items() %}
+            <li>
+                <form action="/update/{{ key }}" method="post" style="display:inline;">
+                    <input type="text" name="name" value="{{ user.name }}">
+                    <input type="email" name="email" value="{{ user.email }}">
+                    <button type="submit">Update</button>
+                </form>
+                <a href="/delete/{{ key }}">Delete</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No users found.</p>
+    {% endif %}
+</body>
+</html>
